@@ -1,12 +1,12 @@
 
 <section class="container p-2">
     
+    <br>
+        <h2><?= esc($title)?></h2>
+    <br>
+
     <?= session()->getFlashdata('error')?>
     <?= validation_list_errors()?>
-
-    <br>
-    <h2><?= esc($title)?></h2>
-    <br>
 
 <!-- La base_url ejecuta el $routes del archivo de rutas -->
 <form action="<?= base_url('admin/create')?>" method="post">

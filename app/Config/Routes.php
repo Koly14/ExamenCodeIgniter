@@ -29,6 +29,10 @@ $routes->group("admin", function ($routes) {
     $routes->get('facts', [Facts::class, "backEnd"]);
     $routes->get('users', [Users::class, "backEnd"]);
 
+    // Insertar nueva Wonder
+    $routes->get('wonders/new', [Wonders::class, "new"]);
+    $routes->post('wonders/create', [Wonders::class, "create"]);
+
     /** Crear nuevo usuario */ 
     $routes->get('registerForm', [Users::class, 'new']);
     $routes->post('create', [Users::class, 'create']);

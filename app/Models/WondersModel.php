@@ -13,6 +13,4 @@ class WondersModel extends Model {
     protected $allowedFields = ["wonder","location", "imagen"];
 
 
-
-
 }

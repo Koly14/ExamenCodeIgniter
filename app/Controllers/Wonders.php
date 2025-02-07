@@ -44,7 +44,7 @@ class Wonders extends BaseController {
                 .view("frontEnd/footer");
     }
 
-    // Quiero mostrar toda la tabla de Wonders en el BackEnd
+    // Mostrar toda la tabla de Wonders en el BackEnd
     public function backEnd (){
         /* Instancia modelo de la tabla 7wonders */
         $wonders_model = model(WondersModel::class);
@@ -53,8 +53,47 @@ class Wonders extends BaseController {
         $data["wonders"] = $wonders_model->findAll();
 
         return view("templates/header", $data)
-                .view("admin/wonders")
+                .view("admin/wonders/wonders")
                 .view("templates/footer");
+    }
+
+    // Formulario para la nueva WONDER
+    public function new(){
+
+        helper('form');
+
+        return view('templates/header', ['title' => 'Create a new wonder'])
+            .view('admin/wonders/create')
+            .view('templates/footer');
+    }
+
+    // Insertar la nueva WONDER en la BD
+    public function create(){
+
+        helper('form');
+
+        // ejemplo 'wonder' hace referencia al name="wonder" del formulario
+        if(!$this->validate([
+            'wonder' => 'required|max_length[255]|min_length[3]',
+            'location' => 'required|max_length[255]|min_length[3]',
+            'imagen' => 'required',
+        ])){
+            // Devuelve  a la función new para volver a hacer el formulario de creación.
+            return $this->new();
+        }
+
+        // Si pasa lo anterior obtenemos los datos validados
+        $post = $this->validator->getValidated();
+
+        $model = model(WondersModel::class);
+
+        $model->save([
+            'wonder' => $post['wonder'],
+            'location' => $post['location'],
+            'imagen' => $post['imagen'],
+        ]);
+
+        return redirect()->to(base_url('admin/wonders'));
     }
 
 }

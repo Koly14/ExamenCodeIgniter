@@ -1,8 +1,11 @@
 <section class="container p-2">
     <?= $error?>
     <br>
-    <h2><?= esc($title)?></h2>
+        <h2><?= esc($title)?></h2>
     <br>
+
+    <?= session()->getFlashdata("error") ?>
+    <?= validation_list_errors()?>
 
     <form action="<?= base_url('admin/login') ?>" method="post">
         <?= csrf_field() ?>

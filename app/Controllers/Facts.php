@@ -10,7 +10,7 @@ use App\Models\WondersModel;
 
 class Facts extends BaseController {
 
-    // Quiero mostrar toda la tabla de FACTS en el BackEnd
+    // Mostrar toda la tabla de FACTS en el BackEnd
     public function backEnd (){
         /* Instancia modelo de la tabla Facts */
         $facts_model = model(FactsModel::class);
@@ -19,7 +19,7 @@ class Facts extends BaseController {
         $data["facts"] = $facts_model->findAll();
 
         return view("templates/header", $data)
-                .view("admin/facts")
+                .view("admin/facts/facts")
                 .view("templates/footer");
     }
 
