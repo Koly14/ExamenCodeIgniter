@@ -9,7 +9,12 @@ use App\Controllers\Users;
  * @var RouteCollection $routes
  */
 
-// Lo que cargan las rutas dentro del ('la URL a muestrar', [Clase, Metodo])
+ // Para evitar codigo malicioso
+ $routes->setAutoRoute(false);
+
+/**
+ * Lo que cargan las rutas dentro del ('la URL a muestrar', [Clase, Metodo]) 
+*/
 
  // Página principal del frontEnd
 $routes->get('/', [Wonders::class, 'index']);
@@ -24,14 +29,6 @@ $routes->group("admin", function ($routes) {
     // Poner Post y Como en el <form> hemos puesto dentro de action="admin/login" esto se recoje y ejecuta el checkUser
     $routes->post('login', [Users::class, "checkUser"]);
 
-    // Tablas del backEnd para poder editar, añadir y eliminar
-    $routes->get('wonders', [Wonders::class, "backEnd"]);
-    $routes->get('facts', [Facts::class, "backEnd"]);
-    $routes->get('users', [Users::class, "backEnd"]);
-
-    // Insertar nueva Wonder
-    $routes->get('wonders/new', [Wonders::class, "new"]);
-    $routes->post('wonders/create', [Wonders::class, "create"]);
 
     /** Crear nuevo usuario */ 
     $routes->get('registerForm', [Users::class, 'new']);
@@ -39,5 +36,25 @@ $routes->group("admin", function ($routes) {
 
     /** Cerrar session */
     $routes->get('session', [Users::class, 'closeSession']);
+
+
+    /**
+     * Tablas del backEnd para poder editar, añadir y eliminar
+     */
+
+    // View Wonders
+    $routes->get('wonders', [Wonders::class, "backEnd"]);
+    // Insertar
+    $routes->get('wonders/new', [Wonders::class, "new"]);
+    $routes->post('wonders/create', [Wonders::class, "create"]);
+    // Eliminar
+    $routes->get('wonders/delete/(:segment)', [Wonders::class, "delete"]);    
+    // Editar
+    $routes->get('wonders/update/(:segment)', [Wonders::class, "updateForm"]);
+    $routes->post('wonders/update/updated/(:segment)', [Wonders::class, "update"]);    
+
+
+    $routes->get('facts', [Facts::class, "backEnd"]);
+    $routes->get('users', [Users::class, "backEnd"]);
 
 });

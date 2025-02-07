@@ -57,8 +57,8 @@
                                 <td><?= $wonder['wonder'] ?></td>
                                 <td><?= $wonder['location'] ?></td>
                                 <td><img width="150px" src="<?= base_url('assets/img/' . $wonder['imagen']) ?>"></td>
-                                <td><a class="btn btn-outline-primary" href="">EDIT</a></td>
-                                <td><a class="btn btn-danger" href="">DELETE</a></td>
+                                <td><a class="btn btn-outline-primary" href="<?= base_url('admin/wonders/update/'.$wonder['id'])?>">EDIT</a></td>
+                                <td><a class="btn btn-danger" href="<?= base_url('admin/wonders/delete/'.$wonder['id'])?>">DELETE</a></td>
                             </tr>
                         <?php endforeach ?>
                     </tbody>
