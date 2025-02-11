@@ -1,7 +1,7 @@
 <?php
 
-use App\Controllers\Facts;
 use CodeIgniter\Router\RouteCollection;
+use App\Controllers\Facts;
 use App\Controllers\Wonders;
 use App\Controllers\Users;
 
@@ -17,7 +17,7 @@ use App\Controllers\Users;
 */
 
  // Página principal del frontEnd
-$routes->get('/', [Wonders::class, 'index']);
+$routes->get('/', [Wonders::class, 'index/frontend']);
 $routes->get('wonder/(:segment)', [Wonders::class, 'show']);
 
 
@@ -37,13 +37,12 @@ $routes->group("admin", function ($routes) {
     /** Cerrar session */
     $routes->get('session', [Users::class, 'closeSession']);
 
-
     /**
      * Tablas del backEnd para poder editar, añadir y eliminar
      */
 
-    // View Wonders
-    $routes->get('wonders', [Wonders::class, "backEnd"]);
+    // View - [WONDERS]
+    $routes->get('wonders', [Wonders::class, "index/backend"]);
     // Insertar
     $routes->get('wonders/new', [Wonders::class, "new"]);
     $routes->post('wonders/create', [Wonders::class, "create"]);
@@ -53,8 +52,19 @@ $routes->group("admin", function ($routes) {
     $routes->get('wonders/update/(:segment)', [Wonders::class, "updateForm"]);
     $routes->post('wonders/update/updated/(:segment)', [Wonders::class, "update"]);    
 
-
+    // View - [FACTS]
     $routes->get('facts', [Facts::class, "backEnd"]);
+    // Insertar
+    $routes->get('facts/newForm', [Facts::class, "newForm"]);
+    $routes->post('facts/create',[Facts::class, "create"]);
+    // Eliminar
+    $routes->get('facts/delete/(:segment)',[Facts::class, "delete"]);
+    // Editar
+    $routes->get('facts/update/(:segment)', [Facts::class, 'updateForm']);
+    $routes->post('facts/update/updated/(:segment)', [Facts::class, "update"]);    
+
+
+    // View - Users
     $routes->get('users', [Users::class, "backEnd"]);
 
 });

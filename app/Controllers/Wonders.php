@@ -10,7 +10,7 @@ use CodeIgniter\Exceptions\PageNotFoundException;
 
 class Wonders extends BaseController {
 
-    public function index():string {
+    public function index($location):string {
 
         /* Instancia modelo de la tabla 7wonders */
         $wonders_model = model(WondersModel::class);
@@ -18,9 +18,17 @@ class Wonders extends BaseController {
         // Nos da todas las filas en formato array de la tabla Wonders
         $data["wonders"] = $wonders_model->findAll();
 
-        return view("frontEnd/header", $data)
-                .view("frontEnd/index")
-                .view("frontEnd/footer");
+        // Para usar solo una función
+        if($location == 'frontend'){
+            return view("frontEnd/header", $data)
+            .view("frontEnd/index")
+            .view("frontEnd/footer");
+        } else {
+            return view("templates/header", $data)
+            .view("admin/wonders/wonders")
+            .view("templates/footer");
+        }
+
     }
 
     // Requiere un parametro el cual se pide por $route -> wonder/(:segment)
@@ -42,19 +50,6 @@ class Wonders extends BaseController {
         return view("frontEnd/header", $data)
                 .view("frontEnd/wonder")
                 .view("frontEnd/footer");
-    }
-
-    // Mostrar toda la tabla de Wonders en el BackEnd
-    public function backEnd (){
-        /* Instancia modelo de la tabla 7wonders */
-        $wonders_model = model(WondersModel::class);
-
-        // Nos da todas las filas en formato array de la tabla Wonders
-        $data["wonders"] = $wonders_model->findAll();
-
-        return view("templates/header", $data)
-                .view("admin/wonders/wonders")
-                .view("templates/footer");
     }
 
     // FORMULARIO nueva WONDER

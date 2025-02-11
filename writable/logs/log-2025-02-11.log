@@ -1,0 +1,83 @@
+DEBUG - 2025-02-11 18:11:19 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-02-11 18:11:25 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-02-11 18:11:35 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-02-11 18:11:50 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-02-11 18:11:56 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-02-11 18:14:56 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-02-11 18:17:17 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-02-11 18:17:26 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-02-11 18:18:52 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-02-11 18:19:03 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-02-11 18:19:23 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-02-11 18:19:53 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-02-11 18:20:01 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-02-11 18:20:25 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-02-11 18:20:27 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-02-11 18:20:30 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-02-11 18:28:27 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2025-02-11 18:28:27 --> ErrorException: Undefined array key "fact_id"
+[Method: GET, Route: admin/facts]
+in APPPATH\Views\admin\facts\facts.php on line 48.
+ 1 APPPATH\Views\admin\facts\facts.php(48): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "fact_id"', 'D:\\XAMPP\\htdocs\\DWES\\UD4_CODEIGNITER\\Practica_final_7Wonders\\7Wonders\\app\\Views\\admin\\facts\\facts.php', 48)
+ 2 SYSTEMPATH\View\View.php(224): include('D:\\XAMPP\\htdocs\\DWES\\UD4_CODEIGNITER\\Practica_final_7Wonders\\7Wonders\\app\\Views\\admin\\facts\\facts.php')
+ 3 SYSTEMPATH\View\View.php(227): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1173): CodeIgniter\View\View->render('admin/facts/facts', [], true)
+ 5 APPPATH\Controllers\Facts.php(30): view('admin/facts/facts')
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Facts->backEnd()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Facts))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+DEBUG - 2025-02-11 18:48:50 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-02-11 18:48:51 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-02-11 18:48:53 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-02-11 18:48:56 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2025-02-11 18:48:56 --> ErrorException: Undefined variable $title
+[Method: GET, Route: admin/facts]
+in APPPATH\Views\admin\facts\index.php on line 3.
+ 1 APPPATH\Views\admin\facts\index.php(3): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $title', 'D:\\XAMPP\\htdocs\\DWES\\UD4_CODEIGNITER\\Practica_final_7Wonders\\7Wonders\\app\\Views\\admin\\facts\\index.php', 3)
+ 2 SYSTEMPATH\View\View.php(224): include('D:\\XAMPP\\htdocs\\DWES\\UD4_CODEIGNITER\\Practica_final_7Wonders\\7Wonders\\app\\Views\\admin\\facts\\index.php')
+ 3 SYSTEMPATH\View\View.php(227): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1173): CodeIgniter\View\View->render('admin/facts/index', [], true)
+ 5 APPPATH\Controllers\Facts.php(30): view('admin/facts/index')
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Facts->backEnd()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Facts))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+DEBUG - 2025-02-11 18:49:03 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-02-11 19:54:01 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-02-11 19:54:05 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-02-11 19:54:06 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2025-02-11 19:54:06 --> CodeIgniter\View\Exceptions\ViewException: Invalid file: "admin/wonders/wonders.php"
+[Method: GET, Route: admin/wonders]
+in SYSTEMPATH\Exceptions\FrameworkException.php on line 39.
+ 1 SYSTEMPATH\View\View.php(212): CodeIgniter\Exceptions\FrameworkException::forInvalidFile('admin/wonders/wonders.php')
+ 2 SYSTEMPATH\Common.php(1173): CodeIgniter\View\View->render('admin/wonders/wonders', [], true)
+ 3 APPPATH\Controllers\Wonders.php(28): view('admin/wonders/wonders')
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Wonders->index('backend')
+ 5 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Wonders))
+ 6 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+DEBUG - 2025-02-11 19:54:08 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-02-11 19:54:09 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-02-11 19:54:10 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2025-02-11 19:54:10 --> ErrorException: Undefined variable $title
+[Method: GET, Route: admin/facts]
+in APPPATH\Views\admin\facts\index.php on line 3.
+ 1 APPPATH\Views\admin\facts\index.php(3): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $title', 'D:\\XAMPP\\htdocs\\DWES\\UD4_CODEIGNITER\\Practica_final_7Wonders\\7Wonders\\app\\Views\\admin\\facts\\index.php', 3)
+ 2 SYSTEMPATH\View\View.php(224): include('D:\\XAMPP\\htdocs\\DWES\\UD4_CODEIGNITER\\Practica_final_7Wonders\\7Wonders\\app\\Views\\admin\\facts\\index.php')
+ 3 SYSTEMPATH\View\View.php(227): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1173): CodeIgniter\View\View->render('admin/facts/index', [], true)
+ 5 APPPATH\Controllers\Facts.php(30): view('admin/facts/index')
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Facts->backEnd()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Facts))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+DEBUG - 2025-02-11 19:54:13 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
