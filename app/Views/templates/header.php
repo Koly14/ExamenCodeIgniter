@@ -180,7 +180,6 @@
             <ul class="list-unstyled">
               <li><a href="<?= base_url('admin/wonders') ?>">WONDERS</a></li>
               <li><a href="<?= base_url('admin/facts') ?>">FACTS</a></li>
-              <li><a href="<?= base_url('admin/users') ?>">USERS</a></li>
             </ul>
             <?php endif ?>
           </div>
@@ -203,6 +202,12 @@
         <a href="#" class="navbar-brand d-flex align-items-center">
           <strong>Admin Area</strong>
         </a>
+        <?php 
+          $session = session();
+          if(!empty($session->get('user'))): ?>
+          <a href="<?= base_url('admin/wonders') ?>">WONDERS</a>
+          <a href="<?= base_url('admin/facts') ?>">FACTS</a>
+        <?php endif ?>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarHeader" aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>

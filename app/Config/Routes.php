@@ -28,6 +28,8 @@ $routes->group("admin", function ($routes) {
     $routes->get('loginForm', [Users::class, "loginForm"]);
     // Poner Post y Como en el <form> hemos puesto dentro de action="admin/login" esto se recoje y ejecuta el checkUser
     $routes->post('login', [Users::class, "checkUser"]);
+    // Para entrar directamente a Admin si ya tenemos una sessión activa
+    $routes->get('adminArea', [Users::class, "adminArea"]);
 
 
     /** Crear nuevo usuario */ 
@@ -44,7 +46,7 @@ $routes->group("admin", function ($routes) {
     // View - [WONDERS]
     $routes->get('wonders', [Wonders::class, "index/backend"]);
     // Insertar
-    $routes->get('wonders/new', [Wonders::class, "new"]);
+    $routes->get('wonders/newForm', [Wonders::class, "newForm"]);
     $routes->post('wonders/create', [Wonders::class, "create"]);
     // Eliminar
     $routes->get('wonders/delete/(:segment)', [Wonders::class, "delete"]);    
@@ -53,7 +55,7 @@ $routes->group("admin", function ($routes) {
     $routes->post('wonders/update/updated/(:segment)', [Wonders::class, "update"]);    
 
     // View - [FACTS]
-    $routes->get('facts', [Facts::class, "backEnd"]);
+    $routes->get('facts', [Facts::class, "index"]);
     // Insertar
     $routes->get('facts/newForm', [Facts::class, "newForm"]);
     $routes->post('facts/create',[Facts::class, "create"]);

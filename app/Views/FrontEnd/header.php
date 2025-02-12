@@ -180,9 +180,17 @@
           </div>
           <div class="col-sm-4 offset-md-1 py-4">
             <h4>Private Area</h4>
+          <?php 
+            $session = session();
+            if(!empty($session->get('user'))): ?>
+              <ul class="list-unstyled">
+                <li><a href="<?= base_url('admin/adminArea') ?>" class="text-white">Admin Area</a></li>
+              </ul>
+          <?php else :?>
             <ul class="list-unstyled">
               <li><a href="<?= base_url('admin/loginForm') ?>" class="text-white">Loggin</a></li>
             </ul>
+          <?php endif ?>
           </div>
         </div>
       </div>

@@ -123,4 +123,12 @@ class Users extends BaseController {
 
     }
 
+    // Para poder entrar en Admin desde frontend si ya tenemos una session y no la hemos cerrado
+    public function adminArea() {
+
+        return view('templates/header', ['title' => 'Admin Area'])
+        .view('users/admin')
+        .view('templates/footer');
+    }
+
 }

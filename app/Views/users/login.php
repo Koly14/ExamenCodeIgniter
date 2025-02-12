@@ -1,4 +1,5 @@
 <section class="container p-2">
+
     <?= $error?>
     <br>
         <h2><?= esc($title)?></h2>

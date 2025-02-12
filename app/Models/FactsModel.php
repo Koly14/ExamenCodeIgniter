@@ -8,7 +8,7 @@ class FactsModel extends Model {
 
     protected $table = "facts";
 
-    protected $primaryKey = "id";
+    protected $primaryKey = "fact_id";
 
     protected $allowedFields = ["wonder_id","fact_text"];
 
