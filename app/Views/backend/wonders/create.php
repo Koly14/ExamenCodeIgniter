@@ -8,7 +8,9 @@
     <?= validation_list_errors()?>
 
     <!-- El action="URL del routes que ejecuta el -> post()" -->
-    <form action="<?= base_url('admin/wonders/create') ?>" method="post">
+    <form action="<?= base_url('admin/wonders/create') ?>" method="post" enctype="multipart/form-data">
+        <!-- Necesario ** enctype="multipart/form-data" ** Para el $_FILES[][] -->
+         
         <?= csrf_field() ?>
 
         <label for="wonder">Wonder</label>
@@ -24,10 +26,11 @@
         <div class="tex-center">
             <input type="submit" name="submit" value="Create">
         </div>
+
     </form>
 </section>
 <br><br>
 
 <div class="container">
-    <a href="<?=base_url('admin/wonders')?>">Back Wonders</a>
+    <a href="<?=base_url('admin/wonders')?>">Back</a>
 </div>

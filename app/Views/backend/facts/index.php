@@ -40,5 +40,7 @@
 
     <br><br>
     <a href="<?= base_url('admin/facts/newForm')?>"> Add Fact</a>
+    <br><br>
+    <a href="<?= base_url('admin/adminArea')?>">Back</a>
 
 </section>

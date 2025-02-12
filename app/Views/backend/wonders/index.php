@@ -1,78 +1,36 @@
-<!DOCTYPE html>
-<html lang="en">
+<section class="container p-4">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <h2 class="text-center"><?= esc($title) ?></h2>
+    <br><br>
+    <?php if ($wonders !== []): ?>
 
-    <style>
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            /* Une los bordes para evitar doble borde */
-            border: 2px solid;
-            /* Borde exterior de la tabla */
-        }
+        <?php foreach ($wonders as $wonder): ?>
 
-        th,
-        td {
-            border: 1px solid;
-            /* Bordes internos */
-            padding: 8px;
-        }
+            <h3><?= esc($wonder['wonder']) ?></h3>
+            <img src="<?= base_url('/assets/img/'.$wonder['imagen'])?>" width="200" alt="<?=$wonder['imagen']?>">
+            <br>
+            <p>
+                <?= esc($wonder['location']) ?>
+            </p>
+            <br>
+            <p>
+                <a href="<?= base_url('admin/wonders/detail/'.$wonder['id']) ?>">View Wonder</a>
+            </p>
 
-        th {
-            background-color: #007bff;
-            color: white;
-        }
-    </style>
+        <?php endforeach ?>
 
-</head>
+    <?php else: ?>
 
-<section>
+        <h3>No Wonders</h3>
 
-    <body>
+        <p>Unable to find any Wonders for you.</p>
 
-        <div class="container text-center">
-            <h2>7 WONDERS</h2>
+    <?php endif ?>
 
-            <div class="d-flex justify-content-center">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>WONDER</th>
-                            <th>LOCATION</th>
-                            <th>IMAGE</th>
-                            <th>EDIT</th>
-                            <th>DELETE</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <!-- FOREACH TABLE -->
-                        <?php foreach ($wonders as $wonder): ?>
-                            <tr>
-                                <td><?= $wonder['id'] ?></td>
-                                <td><?= $wonder['wonder'] ?></td>
-                                <td><?= $wonder['location'] ?></td>
-                                <td><img width="150px" src="<?= base_url('assets/img/' . $wonder['imagen']) ?>"></td>
-                                <td><a class="btn btn-outline-primary" href="<?= base_url('admin/wonders/update/'.$wonder['id'])?>">EDIT</a></td>
-                                <td><a class="btn btn-danger" href="<?= base_url('admin/wonders/delete/'.$wonder['id'])?>">DELETE</a></td>
-                            </tr>
-                        <?php endforeach ?>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </body>
+    <br><br><br>
+    <a href="<?= base_url('admin/wonders/newForm')?>">Add Wonder</a>
+    <br><br><br>
+    <a href="<?= base_url('admin/adminArea')?>">Back</a>
+
+    
 </section>
-<br><br>
-<section>
-    <div class="container px-2">
-        <a class="btn btn-bd-primary" href="<?= base_url('admin/wonders/new') ?>">Add new Wonder</a>
-    </div>
-</section>
-
-
-</html>

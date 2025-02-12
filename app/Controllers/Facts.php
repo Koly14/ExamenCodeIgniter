@@ -13,7 +13,7 @@ class Facts extends BaseController {
     // Mostrar toda la tabla de FACTS en el BackEnd
     public function index (){
 
-        // Controlamos si hay sessión o no para crear una Fact nueva
+        // Controlamos si hay sessión o no para entrar en parte Admin
         $session = session();
         if(empty($session->get('user'))){
             return redirect()->to(base_url('admin/loginForm'));

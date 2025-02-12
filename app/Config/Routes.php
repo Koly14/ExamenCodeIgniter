@@ -18,7 +18,7 @@ use App\Controllers\Users;
 
  // Página principal del frontEnd
 $routes->get('/', [Wonders::class, 'index/frontend']);
-$routes->get('wonder/(:segment)', [Wonders::class, 'show']);
+$routes->get('wonder/(:segment)', [Wonders::class, 'show/frontend']);
 
 
 $routes->group("admin", function ($routes) {
@@ -30,7 +30,6 @@ $routes->group("admin", function ($routes) {
     $routes->post('login', [Users::class, "checkUser"]);
     // Para entrar directamente a Admin si ya tenemos una sessión activa
     $routes->get('adminArea', [Users::class, "adminArea"]);
-
 
     /** Crear nuevo usuario */ 
     $routes->get('registerForm', [Users::class, 'new']);
@@ -45,6 +44,7 @@ $routes->group("admin", function ($routes) {
 
     // View - [WONDERS]
     $routes->get('wonders', [Wonders::class, "index/backend"]);
+    $routes->get('wonders/detail/(:segment)', [Wonders::class, "show/backend"]);
     // Insertar
     $routes->get('wonders/newForm', [Wonders::class, "newForm"]);
     $routes->post('wonders/create', [Wonders::class, "create"]);

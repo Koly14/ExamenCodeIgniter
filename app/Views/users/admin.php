@@ -19,7 +19,6 @@
         <div class="d-flex align-content-center justify-content-center">
             <a href="<?= base_url('admin/wonders') ?>" class="btn btn-outline-primary">WONDERS</a>
             <a href="<?= base_url('admin/facts') ?>" class="btn btn-outline-primary">FACTS</a>
-            <a href="<?= base_url('admin/users') ?>" class="btn btn-outline-primary">USERS</a>
         </div>
     </div>
 

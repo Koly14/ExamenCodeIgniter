@@ -10,29 +10,35 @@ use CodeIgniter\Exceptions\PageNotFoundException;
 
 class Wonders extends BaseController {
 
-    public function index($location):string {
+    public function index($location) {
 
         /* Instancia modelo de la tabla 7wonders */
         $wonders_model = model(WondersModel::class);
-
         // Nos da todas las filas en formato array de la tabla Wonders
         $data["wonders"] = $wonders_model->findAll();
 
-        // Para usar solo una función
+        // Para usar solo una función / Depende de si es Front o Back tenemos una view u otra.
         if($location == 'frontend'){
-            return view("frontEnd/header", $data)
-            .view("frontEnd/index")
-            .view("frontEnd/footer");
+            return view("frontend/header", $data)
+            .view("frontend/index")
+            .view("frontend/footer");
         } else {
-            return view("templates/header", $data)
-            .view("admin/wonders/wonders")
+
+            // Controlamos si hay sessión o no para entrar en parte Admin
+            $session = session();
+            if(empty($session->get('user'))){
+                return redirect()->to(base_url('admin/loginForm'));
+            }
+
+            return view("templates/header", ['title' => 'Wonders Management'] )
+            .view("backend/wonders/index",$data)
             .view("templates/footer");
         }
 
     }
 
     // Requiere un parametro el cual se pide por $route -> wonder/(:segment)
-    public function show($id_wonder):string {
+    public function show($location,$id_wonder) {
 
         /* Instancias tablas */
         $wonders_model = model(WondersModel::class);
@@ -41,24 +47,43 @@ class Wonders extends BaseController {
         // Obtener las maravillas para los botones
         $data["wonders"] = $wonders_model->findAll();
 
-        // Obtener datos de las maravillas segun $id_wonder
+        // Obtener maravilla $id_wonder
         $data["wonder_selected"] = $wonders_model->where(['id' => $id_wonder])->first();
 
-        // Obtener los Facts de cada maravilla segun $id_wonder
+        // Obtener los Facts de la maravilla segun $id_wonder
         $data['wonder_facts'] = $facts_model->where(['wonder_id'=> $id_wonder])->find();
 
-        return view("frontEnd/header", $data)
-                .view("frontEnd/wonder")
-                .view("frontEnd/footer");
+        if ($location == 'frontend') {
+            return view("frontEnd/header", $data)
+            .view("frontEnd/wonder")
+            .view("frontEnd/footer");
+        } else {
+            // Controlamos si hay sessión o no para entrar en parte Admin
+            $session = session();
+            if(empty($session->get('user'))){
+                return redirect()->to(base_url('admin/loginForm'));
+            }
+
+            return view("templates/header", ['title' => 'Wonders Management'] )
+            .view("backend/wonders/detail",$data)
+            .view("templates/footer");
+        }
+
     }
 
     // FORMULARIO nueva WONDER
-    public function new(){
+    public function newForm(){
+
+        // Controlamos si hay sessión o no para entrar en parte Admin
+        $session = session();
+        if(empty($session->get('user'))){
+            return redirect()->to(base_url('admin/loginForm'));
+        }
 
         helper('form');
 
         return view('templates/header', ['title' => 'Create a new wonder'])
-            .view('admin/wonders/create')
+            .view('backend/wonders/create')
             .view('templates/footer');
     }
 
@@ -67,25 +92,39 @@ class Wonders extends BaseController {
 
         helper('form');
 
-        // ejemplo 'wonder' hace referencia al name="wonder" del formulario
-        if(!$this->validate([
+        if(empty($_FILES['imagen']['name'])){
+            throw new PageNotFoundException("Hay que insertar wonder con imagen");
+        }
+
+
+        $data = $this->request->getPost(['wonder', 'location', 'imagen']);
+
+        // El 'wonder' hace referencia al name="wonder" del formulario
+        if(!$this->validateData($data, [
             'wonder' => 'required|max_length[255]|min_length[3]',
             'location' => 'required|max_length[255]|min_length[3]',
-            'imagen' => 'required',
+            'imagen' => 'is_image[imagen]',
         ])){
-            // Devuelve  a la función new para volver a hacer el formulario de creación.
-            return $this->new();
+            // Devuelve a la función new para volver a hacer el formulario de creación.
+            return $this->newForm();
         }
 
         // Si pasa lo anterior obtenemos los datos validados
         $post = $this->validator->getValidated();
 
-        $model = model(WondersModel::class);
+        $Wonders_model = model(WondersModel::class);
 
-        $model->save([
+        //Temporal imagen
+        $file = $this->request->getFile('imagen');
+        //Nombre imagen
+        $wonder_imagen = $file->getName();
+        //Mover imagen
+        $file->move(ROOTPATH.'public/assets/img/',$wonder_imagen);
+
+        $Wonders_model->save([
             'wonder' => $post['wonder'],
             'location' => $post['location'],
-            'imagen' => $post['imagen'],
+            'imagen' => $wonder_imagen,
         ]);
 
         return redirect()->to(base_url('admin/wonders'));
@@ -94,15 +133,21 @@ class Wonders extends BaseController {
     // BORRAR
     public function delete($id){
 
-        if($id == null){
-            throw new PageNotFoundException("Cannot delete the item");
-        }
+        $wonders_model = model(WondersModel::class);
+        $facts_model = model(FactsModel::class);
 
-        $model = model(WondersModel::class);
-        if($model->where('id', $id)->find()){
-            $model->where('id', $id)->delete();
+        // Comprobar si hay facts asociados a la wonder a eliminar
+        if($facts_model->where(['wonder_id' => $id])->find()){
+            throw new PageNotFoundException("No se puede eliminar por que tiene Facts asociados");
         } else {
-            throw new PageNotFoundException("Selected item does not exist in database");
+            // PARA BORRAR LA IMAGEN DE NUESTRA BBDD
+            // Si tiene imagen la wonder seleccionada por $id se hace unlink del archivo
+            if($data['imagen'] = $wonders_model->where('id',$id)->findColumn('imagen')) {
+                unlink(ROOTPATH.'public/assets/img/'.$data['imagen'][0]);
+                // Despues eliminamos la fila entera de la BBDD
+                $wonders_model->where('id',$id)->delete();
+            }
+            $wonders_model->where('id',$id)->delete();
         }
 
         return redirect()->to(base_url('admin/wonders'));
@@ -112,10 +157,16 @@ class Wonders extends BaseController {
     // FORMULARIO editar  (Es parecido a Create, pero con algunos cambios)
     public function updateForm($id) {
 
+        // Controlamos si hay sessión o no para entrar en parte Admin
+        $session = session();
+        if(empty($session->get('user'))){
+            return redirect()->to(base_url('admin/loginForm'));
+        }
+
         helper('form');
 
         if($id == null){
-            throw new PageNotFoundException("Canno update the item");
+            throw new PageNotFoundException("Cannot update the Wonder");
         }
 
         $model = model(WondersModel::class);
@@ -124,10 +175,12 @@ class Wonders extends BaseController {
             $data = [
                 'wonder' => $model->where('id', $id)->first(),
             ];
+        } else {
+            throw new PageNotFoundException("No Wonder");
         }
 
         return view('templates/header', ['title' => 'Update a new wonder'])
-            .view('admin/wonders/update', $data)
+            .view('backend/wonders/update', $data)
             .view('templates/footer');
     }
 
@@ -136,31 +189,71 @@ class Wonders extends BaseController {
 
         helper('form');
 
-        // ejemplo 'wonder' hace referencia al name="wonder" del formulario
-        if(!$this->validate([
-            'wonder' => 'required|max_length[255]|min_length[3]',
-            'location' => 'required|max_length[255]|min_length[3]',
-            'imagen' => 'required', // Añadir required
-        ])){
-            // Devuelve  a la función new para volver a hacer el formulario de creación.
-            return $this->new();
+        if (empty($_FILES['imagen']['name'])){
+            // Si no pulsamo boton de cargar imagen --> Mantenemos la INAGEN de la base de datos
+
+            $data = $this->request->getPost(['wonder', 'location', 'img_actual']);
+
+            if(!$this->validateData($data, [
+                'wonder' => 'required|max_length[255]|min_length[3]',
+                'location' => 'required|max_length[255]|min_length[3]',
+                'img_actual' => 'max_length[255]|min_length[3]',
+            ])){
+                // Devuelve a la función new para volver a hacer el formulario de creación.
+                return $this->updateForm($id);
+            }
+
+            $wonders_model = model(WondersModel::class);
+            $post = $this->validator->getValidated();
+
+            $wonders_model->save( [
+                'id' => $id,
+                'wonder' => $post['wonder'],
+                'location' => $post['location'],
+                'imagen' => $post['img_actual'],
+            ]);
+
+            return redirect()->to(base_url('admin/wonders'));
+
+        } else {
+            // Si pulsamos boton de cargar inamen nueva --> Insertamos una nueva IMAGEN y borramos la que había
+
+            $data = $this->request->getPost(['wonder', 'location', 'imagen']);
+
+            if(!$this->validateData($data, [
+                'wonder' => 'required|max_length[255]|min_length[3]',
+                'location' => 'required|max_length[255]|min_length[3]',
+                'imagen' => 'is_image[imagen]',
+            ])){
+                // Devuelve a la función new para volver a hacer el formulario de creación.
+                return $this->updateForm($id);
+            }
+
+            $wonders_model = model(WondersModel::class);
+            $post = $this->validator->getValidated();
+
+            //Temporal imagen nueva
+            $file = $this->request->getFile('imagen');
+            //Nombre imagen nueva
+            $wonder_imagen = $file->getName();
+            //Mover imagen nueva
+            $file->move(ROOTPATH.'public/assets/img/',$wonder_imagen);
+
+            // Borrar IMAGEN anterior que teniamos almacenada
+            if($data['imagen'] = $wonders_model->where('id',$id)->findColumn('imagen')) {
+                unlink(ROOTPATH.'public/assets/img/'.$data['imagen'][0]);
+            }
+
+            $wonders_model->save( [
+                'id' => $id,
+                'wonder' => $post['wonder'],
+                'location' => $post['location'],
+                'imagen' => $wonder_imagen,
+            ]);
+
+            return redirect()->to(base_url('admin/wonders'));
+
         }
-
-        // Si pasa lo anterior obtenemos los datos validados
-        $post = $this->validator->getValidated();
-
-        $data = [
-            'id' => $id,
-            'wonder' => $post['wonder'],
-            'location' => $post['location'],
-            'imagen' => $post['imagen'],
-        ];
-
-        $model = model(WondersModel::class);
-
-        $model->save($data);
-
-        return redirect()->to(base_url('admin/wonders'));
 
     }
 
