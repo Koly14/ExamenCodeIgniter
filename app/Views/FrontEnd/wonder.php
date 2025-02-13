@@ -31,7 +31,7 @@
                             <div class="col-auto d-none d-lg-block">
                                 <img src="<?= base_url('assets/img/' . $wonder_selected['imagen']) ?>" class="bd-placeholder-img" width="300" height="250">
                             </div>
-                            <div class="col p-4 d-flex flex-column position-static bg-dark">
+                            <div class="col p-4 d-flex flex-column position-static bg-dark-subtle">
                                 <strong class="mb-0"><?= $wonder_selected['location'] ?></strong>
                                 <h3 class="d-inline-block mb-2 text-primary-emphasis"><?= $wonder_selected['wonder'] ?></strong>
                                     <br>

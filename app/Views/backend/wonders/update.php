@@ -36,5 +36,5 @@
 <br><br>
 
 <div class="container">
-    <a href="<?=base_url('admin/wonders')?>">Back</a>
+    <a href="<?=base_url('admin/wonders/detail/'.$wonder['id'])?>">Back</a>
 </div>
